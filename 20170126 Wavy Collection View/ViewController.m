@@ -7,6 +7,8 @@
 //
 
 #import "ViewController.h"
+#import "CustomFlowLayout.h"
+#import "CustomCell.h"
 
 @interface ViewController ()
 
@@ -16,7 +18,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+    CustomFlowLayout *layout = [CustomFlowLayout new];
+    self.wavyCollectionView.collectionViewLayout = layout;
 }
 
 
@@ -25,5 +28,18 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
+    return 1;
+}
+
+-(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    return 100;
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    CustomCell *cell = [self.wavyCollectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
+    cell.titleLabel.text = @(indexPath.item +1).stringValue;
+    return cell;
+}
 
 @end
